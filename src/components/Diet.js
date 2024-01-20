@@ -26,7 +26,7 @@ const Diet = () => {
                         <strong>Get personalised diet plan and exercises!</strong>
                     </div>
                     <div className="text-lg lg:text-lg text-white">
-                        <button className="disabled:bg-gray-400 bg-green-600 rounded-lg px-8 py-2" onClick={openModal}>
+                        <button className="disabled:bg-gray-400 bg-green-600 rounded-lg px-8 py-2 mt-4" onClick={openModal}>
                             Get now
                         </button>
                     </div>

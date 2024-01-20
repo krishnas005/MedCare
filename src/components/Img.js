@@ -10,8 +10,8 @@ const Img = () => {
       </div>
       <div className="lg:w-1/2 lg:p-[60px] lg:ml-8 ml-0 p-4 mt-0 lg:mt-[60px] ">
         <div className=" ">
-        <div className="text-3xl lg:text-5xl  leading-normal mb-4 "><strong>Personalized healthcare<br />designed for you!</strong></div>
-        <div className="text-lg lg:text-lg text-gray-600"><span>Shifting away from a one-size-fits</span><br /><span>all approach to the best care for</span><br /><span>each person.</span></div>
+        <div className="text-3xl lg:text-5xl  leading-normal mb-4 "><strong><span className="text-blue-700">Personalized healthcare</span><br />designed <span className="text-blue-700">for you!</span></strong></div>
+        <div className="text-lg lg:text-lg text-gray-600 tracking-normal"><span>Shifting away from a one-size-fits</span><br /><span>all approach to the best care for</span><br /><span >each person.</span></div>
         </div>
       </div>
     </main>
