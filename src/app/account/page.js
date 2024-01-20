@@ -83,7 +83,7 @@ export default function Account() {
             // console.log("Allergy: "+allergy);
             extractAllAddresses();
             setCurrentEditedAddressId(null);
-            router.push('/')
+            // router.push('/')
         } else {
             toast.error(res.message, {
                 position: "top-right",
