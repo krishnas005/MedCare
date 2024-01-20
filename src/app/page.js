@@ -6,6 +6,7 @@ import Image from "next/image";
 import Img from "@/components/Img";
 import SearchBox from "@/components/SearchBox";
 import Diet from "@/components/Diet";
+import QRCodePage from "@/components/QRCodePage";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Img/>
       <div className="py-14"><SearchBox /></div>
       <Diet/>
+      <QRCodePage/>
     </main>
   );
 }

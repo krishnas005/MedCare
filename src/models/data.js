@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 
 const DataSchema = new mongoose.Schema({
-    DOB: Date,
+    age: String,
     chronicDiseases: String,
     allergies: String,
     medications: String,

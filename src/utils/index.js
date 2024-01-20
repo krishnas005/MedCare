@@ -40,11 +40,11 @@ export const registrationFormControls = [{
 ];
 
 export const addNewAddressFormControls = [{
-    id: "dob",
-    type: "date",
-    placeholder: "DOB",
-    label: "Date of Birth",
-    componentType: "date",
+    id: "age",
+    type: "input",
+    placeholder: "Enter your age",
+    label: "Age",
+    componentType: "input",
 },
 {
     id: "allergies",
@@ -71,14 +71,14 @@ export const addNewAddressFormControls = [{
     id: "height",
     type: "input",
     placeholder: "Enter your height",
-    label: "Height",
+    label: "Height(cm)",
     componentType: "input",
 },
 {
     id: "weight",
     type: "input",
     placeholder: "Enter your weight",
-    label: "Weight",
+    label: "Weight(kg)",
     componentType: "input",
 },
 ];

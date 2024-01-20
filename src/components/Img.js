@@ -9,7 +9,7 @@ const Img = () => {
         <Image src={img} alt="img" width={720} height={350} />
       </div>
       <div className="lg:w-1/2 lg:p-[60px] lg:ml-8 ml-0 p-4 mt-0 lg:mt-[60px]">
-        <div className="text-3xl lg:text-5xl  leading-normal mb-4"><strong>Personalised healthcare<br />designed for you!</strong></div>
+        <div className="text-3xl lg:text-5xl  leading-normal mb-4"><strong>Personalized healthcare<br />designed for you!</strong></div>
         <div className="text-lg lg:text-lg text-gray-600"><span>Shifting away from a one-size-fits</span><br /><span>all approach to the best care for</span><br /><span>each person.</span></div>
       </div>
     </main>

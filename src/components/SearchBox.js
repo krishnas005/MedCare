@@ -1,13 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { data } from "@/assets/medicine_data.js";
+import { GlobalContext } from '@/context';
 // import styles from './SearchComponent.module.css'; // Import your CSS module
 
 const SearchComponent = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [show, setShow] = useState(false);
+    const {
+        allergie
+    } = useContext(GlobalContext);
 
     const handleSearch = () => {
         setShow(true);
@@ -16,6 +20,24 @@ const SearchComponent = () => {
     const handleCloseModal = () => {
         setShow(false);
     };
+
+    // const isAllergicToSalt = (salt) => {
+    //     console.log('Allergie:', allergie);
+    //     console.log('Salt:', salt);
+    //     const isAllergic = allergie && allergie.toLowerCase().includes(salt.toLowerCase());
+    //     console.log('Is Allergic:', isAllergic);
+    //     return isAllergic;
+    // };
+
+    const isAllergicToSalt = (salt) => {
+        const allergens = allergie && allergie.toLowerCase().split(', '); // Assuming allergens are separated by ', '
+        const isAllergic = allergens && allergens.some(allergen => salt.toLowerCase().includes(allergen));
+        return isAllergic;
+    };
+    
+    
+    
+    
 
     return (
         <div className="border-2 border-blue-800 rounded-xl lg:p-[68px] p-[40px] mt-6">
@@ -55,6 +77,8 @@ const SearchComponent = () => {
                                     <th className="py-2 px-4 border border-blue-800">Price</th>
                                     <th className="py-2 px-4 border border-blue-800">Salt</th>
                                     <th className="py-2 px-4 border border-blue-800">Side Effects</th>
+                                    <th className="py-2 px-4 border border-blue-800">Allergy Alert</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,6 +88,9 @@ const SearchComponent = () => {
                                         <td className="py-2 px-4 border-1 border-blue-800">{item.product_price}</td>
                                         <td className="py-2 px-4 border-1 border-blue-800">{item.salt_composition}</td>
                                         <td className="py-2 px-4 border-1 border-blue-800">{item.side_effects}</td>
+                                        <td className="py-2 px-4 border-1 border-blue-800">
+                                            {isAllergicToSalt(item.salt_composition) ? 'Allergic' : 'Not Allergic'}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

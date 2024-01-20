@@ -47,7 +47,6 @@ export async function POST(req) {
             {
                 id: checkUser._id,
                 email: checkUser?.email,
-                role: checkUser?.role,
             },
             "default_secret_key",
             { expiresIn: "1d" }
@@ -59,7 +58,6 @@ export async function POST(req) {
                 email: checkUser.email,
                 name: checkUser.name,
                 _id: checkUser._id,
-                role: checkUser.role,
             },
         };
         return NextResponse.json({

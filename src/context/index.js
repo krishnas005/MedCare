@@ -13,9 +13,14 @@ export default function GlobalState({ children }) {
     const [pageLevelLoader, setPageLevelLoader] = useState(false);
     const [componentLevelLoader, setComponentLevelLoader] = useState({ loading: false, id: "" });
     const [addresses, setAddresses] = useState([]);
+    const [allergie,setAllergie] = useState("")
+    const [ages,setAge] = useState("")
+    const [weights,setWeight] = useState("")
+    const [heights,setHeight] = useState("")
+    const [chronic,setChronic] = useState("")
 
     const [addressFormData, setAddressFormData] = useState({
-        DOB: "",
+        age: "",
         medications: "",
         chronicDiseases: "",
         allergies: "",
@@ -43,8 +48,8 @@ export default function GlobalState({ children }) {
         <GlobalContext.Provider value={{
             isAuthUser, setIsAuthUser,user, setUser,
             pageLevelLoader, setPageLevelLoader, componentLevelLoader, setComponentLevelLoader,
-            addresses, setAddresses,
-            addressFormData, setAddressFormData,
+            addresses, setAddresses, ages,setAge, weights,setWeight,
+            addressFormData, setAddressFormData, allergie,setAllergie,heights,setHeight, chronic,setChronic
         }}>
             {children}
         </GlobalContext.Provider>

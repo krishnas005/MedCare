@@ -5,12 +5,13 @@ import InputComponent from "@/components/InputComponent";
 import Navbar from "@/components/Navbar";
 import Notification from "@/components/Notification";
 import { GlobalContext } from "@/context";
-import { addNewAddress, deleteAddress, fetchAllAddresses, updateAddress } from "@/services/data";
+import { addNewAddress, fetchAllAddresses, updateAddress } from "@/services/data";
 import { addNewAddressFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import QRCodePage from "@/components/QRCodePage";
 
 export default function Account() {
 
@@ -22,28 +23,40 @@ export default function Account() {
         setAddressFormData,
         componentLevelLoader,
         setComponentLevelLoader,
-        pageLevelLoader,
-        setPageLevelLoader,
+        pageLevelLoader, heights, setHeight, chronic, setChronic,
+        setPageLevelLoader, allergie, setAllergie, ages, setAge, weights, setWeight,
     } = useContext(GlobalContext);
 
 
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [currentEditedAddressId, setCurrentEditedAddressId] = useState(null);
+
     const router = useRouter()
 
     async function extractAllAddresses() {
-        setPageLevelLoader(true);
+        // setPageLevelLoader(true);
         const res = await fetchAllAddresses(user?._id);
         console.log("DATA1: " + res.allergies);
         if (res.success) {
             setPageLevelLoader(false);
-            console.log("DATA: " + res.allergies);
+            console.log("DATA: " + res.data);
             setAddresses(res.data);
         }
     }
 
     async function handleAddOrUpdateAddress() {
         setComponentLevelLoader({ loading: true, id: "" });
+        const { allergies } = addressFormData;
+        const { age } = addressFormData;
+        const { weight } = addressFormData;
+        const { height } = addressFormData;
+        const { chronicDiseases } = addressFormData;
+        setHeight(height)
+        setChronic(chronicDiseases)
+        setAllergie(allergies)
+        setAge(age)
+        setWeight(weight)
+        // console.log("Allergies: "+allergies)
         const res =
             currentEditedAddressId !== null
                 ? await updateAddress({
@@ -52,21 +65,22 @@ export default function Account() {
                 })
                 : await addNewAddress({ ...addressFormData, userID: user?._id });
 
-        console.log(res);
+        console.log("Form " + addressFormData);
 
         if (res.success) {
             setComponentLevelLoader({ loading: false, id: "" });
             toast.success(res.message, {
                 position: "top-right",
             });
-            setAddressFormData({
-                DOB: "",
-                medications: "",
-                chronicDiseases: "",
-                allergies: "",
-                height: "",
-                weight: ""
-            });
+            // setAddressFormData({
+            //     age: "",
+            //     medications: "",
+            //     chronicDiseases: "",
+            //     allergies: "",
+            //     height: "",
+            //     weight: ""
+            // });
+            // console.log("Allergy: "+allergy);
             extractAllAddresses();
             setCurrentEditedAddressId(null);
             router.push('/')
@@ -74,50 +88,19 @@ export default function Account() {
             toast.error(res.message, {
                 position: "top-right",
             });
-            setAddressFormData({
-                DOB: "",
-                medications: "",
-                chronicDiseases: "",
-                allergies: "",
-                height: "",
-                weight: ""
-            });
+            // setAddressFormData({
+            //     age: "",
+            //     medications: "",
+            //     chronicDiseases: "",
+            //     allergies: "",
+            //     height: "",
+            //     weight: ""
+            // });
         }
     }
 
-    function handleUpdateAddress(getCurrentAddress) {
-        setShowAddressForm(true);
-        setAddressFormData({
-            DOB: getCurrentAddress.DOB,
-            chronicDiseases: getCurrentAddress.chronicDiseases,
-            medications: getCurrentAddress.medications,
-            allergies: getCurrentAddress.allergies,
-            height: getCurrentAddress.height,
-            weight: getCurrentAddress.weight,
-        });
-        setCurrentEditedAddressId(getCurrentAddress._id);
-    }
 
-    async function handleDelete(getCurrentAddressID) {
-        setComponentLevelLoader({ loading: true, id: getCurrentAddressID });
 
-        const res = await deleteAddress(getCurrentAddressID);
-
-        if (res.success) {
-            setComponentLevelLoader({ loading: false, id: "" });
-
-            toast.success(res.message, {
-                position: "top-right",
-            });
-            await extractAllAddresses();
-        } else {
-            setComponentLevelLoader({ loading: false, id: "" });
-
-            toast.error(res.message, {
-                position: "top-right",
-            });
-        }
-    }
 
     useEffect(() => {
         if (user !== null) extractAllAddresses();
@@ -145,47 +128,18 @@ export default function Account() {
                                     data-testid="loader"
                                 />
                             ) : (
-                                <div className="mt-4 flex flex-col gap-4">
-                                    {addresses && addresses.length > 0 ? (
-                                        addresses.map((item) => (
-                                            <div className="border p-6" key={item._id}>
-                                                <p>DATE OF BIRTH : {item.DOB}</p>
-                                                <p>chronicDiseases : {item.chronicDiseases}</p>
-                                                <p>Medications : {item.medications}</p>
-                                                <p>Allergies : {item.allergies}</p>
-                                                <p>Weight : {item.weight}</p>
-                                                <p>Height : {item.height}</p>
-                                                <button
-                                                    onClick={() => handleUpdateAddress(item)}
-                                                    className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
-                                                >
-                                                    Update
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(item._id)}
-                                                    className="mt-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
-                                                >Delete
-                                                    {componentLevelLoader &&
-                                                        componentLevelLoader.loading &&
-                                                        componentLevelLoader.id === item._id ? (
-                                                        <ComponentLevelLoader
-                                                            text={"Deleting"}
-                                                            color={"#ffffff"}
-                                                            loading={
-                                                                componentLevelLoader &&
-                                                                componentLevelLoader.loading
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        "Delete"
-                                                    )}
-                                                </button>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p>No data found ! Please add a new data below</p>
-                                    )
-                                    }
+                                <div className="mt-4 flex flex-col gap-14">
+                                    <div className="border p-6" >
+                                        <p>Allergy : {allergie}</p>
+                                        <p>Age : {ages}</p>
+                                        <p>Weight : {weights}</p>
+                                        <p>Height : {heights}</p>
+                                        <p>Chronic Disease : {chronic}</p>
+
+                                    </div>
+                                    <div>
+                                        {allergie && allergie.length>0 ? <QRCodePage /> : ""}
+                                        </div>
                                 </div>
                             )}
                         </div>
@@ -207,11 +161,13 @@ export default function Account() {
                                             label={controlItem.label}
                                             value={addressFormData[controlItem.id]}
                                             key={controlItem.id}
-                                            onChange={(event) =>
+                                            onChange={(event) => {
+
                                                 setAddressFormData({
                                                     ...addressFormData,
                                                     [controlItem.id]: event.target.value,
                                                 })
+                                            }
                                             }
                                         />
                                     ))}

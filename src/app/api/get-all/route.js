@@ -24,7 +24,8 @@ export async function GET(req) {
         const isAuthUser = await AuthUser(req);
 
         if (isAuthUser) {
-            const getAddress = await Data.findOne({ });
+            // const getAddress = await Data.findOne({ });
+            const getAddress = await Data.find({ userID: id});
             // console.log("get-address:"+getAddress);
 
             if (getAddress) {
