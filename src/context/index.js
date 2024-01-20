@@ -19,6 +19,10 @@ export default function GlobalState({ children }) {
     const [heights,setHeight] = useState("")
     const [chronic,setChronic] = useState("")
 
+    const protectedRoutes = [
+        'account'
+    ]
+
     const [addressFormData, setAddressFormData] = useState({
         age: "",
         medications: "",
@@ -43,6 +47,16 @@ export default function GlobalState({ children }) {
         }
     }, [Cookies])
 
+    useEffect(() => {
+        if (
+            path !== "/register" &&
+            path !== "/" &&
+            user &&
+            Object.keys(user).length === 0 &&
+            protectedRoutes.includes(path) > -1
+        )
+            router.push("/login");
+    }, [user, path])
 
     return (
         <GlobalContext.Provider value={{

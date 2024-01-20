@@ -4,7 +4,6 @@ import React, { useState, useContext } from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { data } from "@/assets/medicine_data.js";
 import { GlobalContext } from '@/context';
-// import styles from './SearchComponent.module.css'; // Import your CSS module
 
 const SearchComponent = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -21,26 +20,17 @@ const SearchComponent = () => {
         setShow(false);
     };
 
-    // const isAllergicToSalt = (salt) => {
-    //     console.log('Allergie:', allergie);
-    //     console.log('Salt:', salt);
-    //     const isAllergic = allergie && allergie.toLowerCase().includes(salt.toLowerCase());
-    //     console.log('Is Allergic:', isAllergic);
-    //     return isAllergic;
-    // };
 
     const isAllergicToSalt = (salt) => {
-        const allergens = allergie && allergie.toLowerCase().split(', '); // Assuming allergens are separated by ', '
+        const allergens = allergie && allergie.toLowerCase().split(', ');
         const isAllergic = allergens && allergens.some(allergen => salt.toLowerCase().includes(allergen));
         return isAllergic;
     };
     
-    
-    
-    
 
     return (
-        <div className="border-2 border-blue-800 rounded-xl lg:p-[68px] p-[40px] mt-6">
+        <main className="flex justify-center mt-6">
+            <div className="border-2 border-blue-800 rounded-xl lg:p-[40px] p-[20px] mt-6 max-w-5xl ">
             <div className="text-center mb-4 py-6">
                 <p className=" text-4xl mb-4">
                     <strong>Search for ingredients or possible allergies:</strong>
@@ -48,7 +38,7 @@ const SearchComponent = () => {
                 <p className="text-gray-700 mb-8">
                     Make informed decisions while buying that can make huge impact on health!
                 </p>
-                <div className="flex items-center justify-center h-20 rounded-lg border-black overflow-hidden ">
+                <div className="flex items-center justify-center h-16 rounded-lg border-black overflow-hidden ">
                     <input
                         type="text"
                         placeholder="Search for products"
@@ -100,6 +90,7 @@ const SearchComponent = () => {
             )}
 
         </div>
+        </main>
     );
 };
 
