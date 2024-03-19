@@ -3,7 +3,7 @@
 export const signUp = async(formData) => {
 
     try {
-        const res = await fetch('https://med-care-dun.vercel.app/api/signup', {
+        const res = await fetch('http://localhost:3000/api/signup', {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",

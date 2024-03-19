@@ -1,7 +1,7 @@
 "use client";
 
 import InputComponent from "@/components/InputComponent"
-import SelectComponent from "@/components/SelectComponent"
+// import SelectComponent from "@/components/SelectComponent"
 import { signUp } from "@/services/signup";
 import { registrationFormControls } from "@/utils"
 import Link from "next/link"
